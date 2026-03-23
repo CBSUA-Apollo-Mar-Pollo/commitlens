@@ -11,3 +11,12 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Commit {
+  id        String   @id @default(cuid())
+  message   String
+  type      String
+  quality   Int
+  createdAt DateTime @default(now())
+  name      String
+}
