@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import { execSync } from "child_process";
 import inquirer from "inquirer";
 import { GoogleGenAI } from "@google/genai";
+import ora from "ora";
 
 dotenv.config();
 
@@ -46,6 +47,8 @@ ${safeDiff}
 }
 
 async function run() {
+  const spinner = ora("Analyzing staged changes...").start();
+
   const diff = getStagedDiff();
 
   if (!diff.trim()) {
@@ -53,26 +56,61 @@ async function run() {
     process.exit(1);
   }
 
+  spinner.text = "Generating commit message...";
+
   try {
     const message = await generateCommitMessage(diff);
 
-    console.log("\nSuggested commit:");
+    spinner.text = "Finalizing result...";
+    spinner.succeed("Commit message generated.");
+
+    console.log("\n✨ Suggested commit:");
     console.log(message);
 
-    const { confirm } = await inquirer.prompt([
+    spinner.stop();
+
+    const { action } = await inquirer.prompt([
       {
-        type: "confirm",
-        name: "confirm",
+        type: "select",
+        name: "action",
         message: "Use this commit message?",
+        choices: [
+          { name: "Accept and commit", value: "accept" },
+          { name: "Edit message", value: "edit" },
+          { name: "Cancel", value: "cancel" },
+        ],
       },
     ]);
 
-    if (confirm) {
+    let finalMessage = message;
+
+    if (action === "edit") {
+      const { edited } = await inquirer.prompt([
+        {
+          type: "input",
+          name: "edited",
+          message: "Edit commit message:",
+          default: message,
+        },
+      ]);
+
+      finalMessage = edited;
+    }
+
+    // create commit
+    if (action === "accept") {
+      const commitSpinner = ora("Creating git commit...").start();
+
       execSync(`git commit -m ${JSON.stringify(message)}`, {
-        stdio: "inherit",
+        stdio: "ignore",
       });
+
+      commitSpinner.succeed("Commit created successfully.");
+    } else {
+      console.log("Commit cancelled.");
     }
   } catch (error) {
+    spinner.fail("Failed to generate commit message.");
     console.error("\n❌ Gemini error:");
     console.error(error.message);
     process.exit(1);
