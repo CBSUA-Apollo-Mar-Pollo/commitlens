@@ -93,7 +93,7 @@ User Stages Changes
 
 ---
 
-## 📋 Project Structure
+<!-- ## 📋 Project Structure
 
 ```
 commitlens/
@@ -135,7 +135,7 @@ commitlens/
 ├── postcss.config.mjs           # PostCSS configuration
 ├── components.json              # Component configuration
 └── package.json                 # Root dependencies
-```
+``` -->
 
 ---
 
@@ -264,7 +264,7 @@ npm run format
 
 ---
 
-## 🎯 Skills Demonstrated
+<!-- ## 🎯 Skills Demonstrated
 
 This project showcases expertise in:
 
@@ -306,7 +306,7 @@ This project showcases expertise in:
 - Working with staged changes and commit workflows
 - Understanding of conventional commits specification
 
----
+--- -->
 
 ## 🔐 Environment Setup
 
@@ -323,7 +323,7 @@ This project showcases expertise in:
 2. Create a new API key
 3. Add to `.env.local`
 
----
+<!-- ---
 
 ## 📊 Database Schema
 
@@ -339,7 +339,7 @@ model Commit {
 }
 ```
 
----
+--- -->
 
 ## 🚀 Deployment
 
@@ -364,19 +364,19 @@ npm publish
 - **Response Streaming**: Real-time feedback via loading spinners
 - **Error Resilience**: Comprehensive error handling with user-friendly messages
 
----
+<!-- ---
 
 ## 🤝 Contributing
 
 This is a demonstration project showcasing full-stack development expertise. However, contributions and suggestions are welcome!
 
----
+--- -->
 
 ## 📄 License
 
 MIT License - Free to use and modify
 
----
+<!-- ---
 
 ## ⚡ Why This Stands Out
 
@@ -391,6 +391,6 @@ MIT License - Free to use and modify
 
 CommitLens solves a real problem developers face daily while showcasing production-grade code quality and architecture.
 
----
+--- -->
 
 **Built with ❤️ — An example of full-stack development excellence**
