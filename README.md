@@ -1,4 +1,4 @@
-# CommitLens 🔍
+📦 CommitLens CLI
 
 **An AI-powered commit message generator that transforms messy code changes into meaningful, conventional commit messages.**
 
@@ -16,6 +16,19 @@ CommitLens is a full-stack application that leverages Google's Gemini AI to auto
 - 🎯 **Interactive CLI**: User-friendly prompt interface with the ability to accept, edit, or cancel
 - 🗄️ **Persistent Tracking**: Stores commit messages and metadata using Prisma ORM
 - 🎨 **Modern Stack**: Built with Next.js, React, and TypeScript
+
+---
+
+## 📌 Example
+
+    **Instead of:**
+        ```bash
+            git commit -m "fix stuff"
+        ```
+    **You get:**
+        ```bash
+            fix(auth): handle token refresh edge case
+        ```
 
 ---
 
@@ -174,185 +187,104 @@ Edit `.env.local` and add:
 
 ```env
 GEMINI_API_KEY=your_api_key_here
-DATABASE_URL=postgresql://user:password@localhost:5432/commitlens
 ```
 
-4. **Set up the database**
+4. **(Optional) Link globally**
 
 ```bash
-npx prisma migrate dev
+npm link
 ```
 
-5. **Start the application**
+Now you can run:
 
 ```bash
-npm run dev
+commitlens
+
 ```
 
-Visit [http://localhost:3000](http://localhost:3000)
+**🧠 How It Works**
 
-### Usage - CLI
-
-Generate a commit message for staged changes:
+1.You stage your changes:
 
 ```bash
-npm run commit
+git add .
+
 ```
 
-Or run directly:
+2. Run CommitLens:
 
 ```bash
-node cli/index.js
+commitlens
+
 ```
 
-**Workflow:**
+3. Internally:
 
-1. Stage your changes: `git add .`
-2. Run: `npm run commit`
-3. Review the generated message
-4. Choose: Accept (commits immediately), Edit (modify then commit), or Cancel
+- Reads staged diff → git diff --cached
+- Sends diff to AI
+- Generates commit message
 
----
-
-## 💻 Development
-
-### Running Locally
+4. CLI prompts:
 
 ```bash
-# Install dependencies
-npm install && cd cli && npm install && cd ..
+? Use this commit message?
+❯ Accept and commit
+  Edit message
+  Cancel
 
-# Set up environment
-cp .env.example .env.local
-# Edit .env.local with your keys
-
-# Initialize database
-npx prisma migrate dev
-
-# Start dev server
-npm run dev
-
-# In another terminal, test CLI
-npm run commit
 ```
 
-### Database Commands
+5. If accepted:
 
 ```bash
-# Create a new migration after schema changes
-npx prisma migrate dev --name describe_your_change
+git commit -m "feat(posts): add media upload support"
 
-# Reset database (⚠️ development only!)
-npx prisma migrate reset
-
-# Open Prisma Studio (visual database browser)
-npx prisma studio
-
-# View migration status
-npx prisma migrate status
-```
-
-### Code Quality
-
-```bash
-# Run ESLint
-npm run lint
-
-# Format code
-npm run format
 ```
 
 ---
 
-<!-- ## 🎯 Skills Demonstrated
-
-This project showcases expertise in:
-
-### **Full-Stack Development**
-
-- Frontend: Modern React with Next.js App Router and component architecture
-- Backend: Node.js CLI with system process management and Git integration
-- Database: PostgreSQL schema design with Prisma ORM and migrations
-
-### **API Integration**
-
-- Integrates with Google Gemini AI API for intelligent message generation
-- Error handling, response parsing, and API rate management
-- Async/await patterns for API calls
-
-### **User Experience**
-
-- Interactive CLI with real-time feedback (loading spinners, success/error states)
-- User input validation and error recovery
-- Clear feedback messages and intuitive workflows
-
-### **Software Architecture**
-
-- Monorepo structure with shared utilities
-- Separation of concerns (CLI, Web, Database)
-- Modular code with reusable components and utilities
-- Environment-based configuration
-
-### **DevOps & Database**
-
-- Database schema design and migrations
-- Prisma ORM for type-safe database access
-- Environment variable management
-- Version control best practices
-
-### **Git & Version Control**
-
-- Deep Git integration (`git diff`, `git commit`)
-- Working with staged changes and commit workflows
-- Understanding of conventional commits specification
-
---- -->
-
-## 🔐 Environment Setup
-
-### Required Variables
-
-| Variable         | Description                  | Example                                       |
-| ---------------- | ---------------------------- | --------------------------------------------- |
-| `GEMINI_API_KEY` | Google Gemini API key        | `AIza...`                                     |
-| `DATABASE_URL`   | PostgreSQL connection string | `postgresql://user:pass@localhost/commitlens` |
-
-### Get Your API Key
-
-1. Visit [Google AI Studio](https://aistudio.google.com)
-2. Create a new API key
-3. Add to `.env.local`
-
-<!-- ---
-
-## 📊 Database Schema
-
-The application uses Prisma ORM with PostgreSQL:
-
-```prisma
-model Commit {
-  id        String   @id @default(cuid())
-  message   String   // The generated commit message
-  diff      String   // The git diff that was analyzed
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-```
-
---- -->
-
-## 🚀 Deployment
-
-### Deploy Web App on Vercel
+**🏗 CLI Flow**
 
 ```bash
-vercel deploy
+git add → commitlens → read diff → send to AI → generate message → user confirm → git commit
+
 ```
 
-### Deploy CLI as npm Package
+---
+
+**🧾 Commit Format**
+CommitLens enforces:
 
 ```bash
-npm publish
+type(scope): description
+
+```
+
+**Supported Types:**
+
+- feat – new feature
+- fix – bug fix
+- refactor – code change without feature/bug
+- docs – documentation
+- chore – maintenance
+
+---
+
+**⚠️ Limitations**
+
+- Requires staged changes (git add)
+- Large diffs may be truncated
+- AI output may need manual review
+
+---
+
+**🧪 Development**
+Run locally:
+
+```bash
+
+node index.js
+
 ```
 
 ---
@@ -364,33 +296,16 @@ npm publish
 - **Response Streaming**: Real-time feedback via loading spinners
 - **Error Resilience**: Comprehensive error handling with user-friendly messages
 
-<!-- ---
+---
 
 ## 🤝 Contributing
 
 This is a demonstration project showcasing full-stack development expertise. However, contributions and suggestions are welcome!
 
---- -->
+---
 
 ## 📄 License
 
 MIT License - Free to use and modify
-
-<!-- ---
-
-## ⚡ Why This Stands Out
-
-**For Recruiters**: This project demonstrates:
-
-- ✅ Full-stack capabilities (frontend, backend, database, DevOps)
-- ✅ AI/LLM integration experience
-- ✅ Modern tech stack proficiency
-- ✅ Clean code and architecture principles
-- ✅ User experience focus
-- ✅ Git and development workflow expertise
-
-CommitLens solves a real problem developers face daily while showcasing production-grade code quality and architecture.
-
---- -->
 
 **Built with ❤️ — An example of full-stack development excellence**
