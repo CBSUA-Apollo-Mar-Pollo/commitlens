@@ -6,7 +6,7 @@
 
 ## Overview
 
-CommitLens is a full-stack application that leverages Google's Gemini AI to automatically generate high-quality, conventional commit messages from staged Git changes. It eliminates the friction of writing commit messages while maintaining code consistency and best practices.
+CommitLens is a CLI tool that leverages Google's Gemini AI to automatically generate high-quality, conventional commit messages from staged Git changes. It eliminates the friction of writing commit messages while maintaining code consistency and best practices.
 
 ### Why CommitLens?
 
