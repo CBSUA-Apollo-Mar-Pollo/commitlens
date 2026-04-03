@@ -1,4 +1,4 @@
-📦 CommitLens CLI
+## 📦 CommitLens CLI
 
 **An AI-powered commit message generator that transforms messy code changes into meaningful, conventional commit messages.**
 
@@ -21,14 +21,19 @@ CommitLens is a full-stack application that leverages Google's Gemini AI to auto
 
 ## 📌 Example
 
-    **Instead of:**
-        ```bash
-            git commit -m "fix stuff"
-        ```
-    **You get:**
-        ```bash
-            fix(auth): handle token refresh edge case
-        ```
+Instead of:
+
+```bash
+
+    git commit -m "fix stuff"
+
+```
+
+You get:
+
+```bash
+   fix(auth): handle token refresh edge case
+```
 
 ---
 
@@ -43,7 +48,7 @@ CommitLens is structured as a monorepo with multiple components:
 - Interactive prompts using Inquirer.js for user decisions
 - Real-time feedback with Ora spinners and progress indicators
 
-### **Web Application** (`src/`)
+<!-- ### **Web Application** (`src/`)
 
 - Next.js-based frontend dashboard
 - React UI components for visualizing commits
@@ -53,22 +58,19 @@ CommitLens is structured as a monorepo with multiple components:
 
 - PostgreSQL database schema using Prisma ORM
 - Stores commit history and metadata
-- Versioned migrations for reliable deployments
+- Versioned migrations for reliable deployments -->
 
 ---
 
 ## 🚀 Tech Stack
 
-| Layer               | Technology                     |
-| ------------------- | ------------------------------ |
-| **AI/LLM**          | Google Gemini 2.5 Flash        |
-| **Backend**         | Node.js, Prisma ORM            |
-| **Frontend**        | Next.js 14+, React, TypeScript |
-| **Database**        | PostgreSQL                     |
-| **CLI**             | Node.js, Inquirer.js, Ora      |
-| **Code Quality**    | ESLint                         |
-| **Styling**         | Tailwind CSS, PostCSS          |
-| **Package Manager** | npm                            |
+| Layer               | Technology                |
+| ------------------- | ------------------------- |
+| **AI/LLM**          | Google Gemini 2.5 Flash   |
+| **Backend**         | Node.js, Prisma ORM       |
+| **CLI**             | Node.js, Inquirer.js, Ora |
+| **Code Quality**    | ESLint                    |
+| **Package Manager** | npm                       |
 
 ---
 
